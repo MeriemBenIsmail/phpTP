@@ -31,15 +31,45 @@ class Repository
         return $response->fetch(PDO::FETCH_OBJ);
     }
 
-    /*
-    public function add($val1,$val2){
+    
+    public function add($val1,$val2,$val3,$val4,$val5,$val6){
+
        
-        $request = "INSERT INTO ".$this->tableName. "(username,password) VALUES ('".$val1."','".$val2."')" ; 
+        $request = "INSERT INTO ".$this->tableName. "(cin,firstname,lastname,section,age,image) VALUES ('".$val1."','".$val2."','".$val3."','".$val4."','".$val5."','".addslashes ($val6)."')" ; 
         $response=$this->bd->prepare($request);
-        $response->execute([$val2,$val2]);
+        $response->execute();
         return $response->fetch(PDO::FETCH_OBJ);
         
-    }*/
+    }
+
+    public function insertBlob($filePath) {
+        $blob = fopen($filePath, 'rb');
+
+        $sql = "INSERT INTO files(data) VALUES(:data)";
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->bindParam(':data', $blob, PDO::PARAM_LOB);
+
+        return $stmt->execute();
+    }
+
+    public function deleteByCin($id){
+
+        $request="DELETE FROM " .$this->tableName." WHERE cin= ?";
+        $response =$this->bd->prepare($request);
+        $response->execute([$id]);
+        return $response->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function update($id1,$id2,$id3){
+
+        $request="UPDATE " .$this->tableName." SET ".$id1."='".$id2."' WHERE cin= ".$id3;
+        $response =$this->bd->prepare($request);
+        $response->execute();
+        return $response->fetch(PDO::FETCH_OBJ);
+    }
+
+
 }
 
 

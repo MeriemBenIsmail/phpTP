@@ -19,6 +19,7 @@ include_once('head.php');
             <?php }
             unset($_SESSION['IncorrectFieldsError']);
             ?>
+
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">

@@ -12,10 +12,7 @@ $password=$_POST['password'];
       $_SESSION['requiredFieldsError']='Please enter username & password';
       header('location:inscription.php');
     }
-    else if (strlen($password) <8){
-      $_SESSION['shortPwdError']='Password too short';
-      header('location:inscription.php');
-    }
+
     else{
 
       $user=new UserRepository();
@@ -24,6 +21,11 @@ $password=$_POST['password'];
         $_SESSION['usernameUsed']='Username unavailable';
         header('location:inscription.php');
       }
+    else if (strlen($password) <8){
+      $_SESSION['shortPwdError']='Password too short';
+      header('location:inscription.php');
+    }
+    
       else{
         $request = "INSERT INTO ".$user->tableName. "(username,password) VALUES ('".$username."','".$password."')";
         $response=$user->bd->prepare($request);

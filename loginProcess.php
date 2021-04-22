@@ -18,6 +18,6 @@ if (isset($username) && isset($password)) {
         }
 
 } else {
-    $_SESSION['IncorrectFieldsError']="Veuillez vérifier vos credenitals";
+    $_SESSION['IncorrectFieldsError']="Username or password incorrect! Please try again ...";
     header('location:login.php');
 }
