@@ -31,11 +31,16 @@ if(isset($_POST['age']) && !empty($_POST['age']))
  
 }
 
+if(isset($_FILES['image']) && !empty($_FILES['image']))
+{
+  $img_blob = file_get_contents ($_FILES['image']['tmp_name']);
+  $persons->updatePic('image',$img_blob,$cin);
+ 
+}
+
 if(isset($_POST['submit'])){
   header('location:acceuil.php');
 }
-
-
 
 
 ?>

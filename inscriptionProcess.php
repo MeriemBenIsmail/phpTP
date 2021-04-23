@@ -27,9 +27,7 @@ $password=$_POST['password'];
     }
     
       else{
-        $request = "INSERT INTO ".$user->tableName. "(username,password) VALUES ('".$username."','".$password."')";
-        $response=$user->bd->prepare($request);
-        $response->execute();
+        $user->addUser($username,$password);
         $_SESSION['user']=$username;
         header('location:acceuil.php');
 

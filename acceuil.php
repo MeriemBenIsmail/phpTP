@@ -11,7 +11,6 @@ $persons = $PersonRepository->findAll();
 
 <body>  
     <div class="alert alert-success">Bienvenu <?= $_SESSION['user'] ?></div>
-    <a href="logout.php" class="btn btn-secondary">Logout</a>
 
     <table class="table">
     <tr>
@@ -21,6 +20,8 @@ $persons = $PersonRepository->findAll();
         <th>Section</th>
         <th>Age</th>
         <th>Image</th>
+        <th>Option1</th>
+        <th>Option2</th>
     </tr>
     <?php foreach ($persons as $personne) {
     ?>
@@ -41,7 +42,8 @@ $persons = $PersonRepository->findAll();
     ?>
 </table>
 <div>
-<button  type="button" class="btn btn-primary"><a href="addPerson.php">Add Person</a></button>
+<a class="btn btn-primary" href="addPerson.php">Add Person</a>
+<a href="logout.php" class="btn btn-secondary">Logout</a>
 </div>
 
 </body>

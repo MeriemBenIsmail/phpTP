@@ -10,11 +10,22 @@ if(isset($_POST['cin']) && isset($_POST['firstname']) && isset($_POST['lastname'
 
   if(!empty($_POST['cin']) && !empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['section']) && !empty($_POST['age']) && !empty($_FILES['image'])){
 
-    $img_blob = file_get_contents ($_FILES['image']['tmp_name']);
-    $persons->add($_POST['cin'],$_POST['firstname'],$_POST['lastname'],$_POST['section'],$_POST['age'],$img_blob);
+    $response=$persons->findBycin($_POST['cin']);
+
+    if(!$response){
+        $img_blob = file_get_contents ($_FILES['image']['tmp_name']);
+        $persons->addPerson($_POST['cin'],$_POST['firstname'],$_POST['lastname'],$_POST['section'],$_POST['age'],$img_blob);
     
 
     header('location:acceuil.php');
+    }
+    else {
+        $_SESSION['usedCinError']='Used CIN ! try again..';
+    }
+    
+  }
+  else {
+    $_SESSION['emptyFields']='Please enter all fields';
   }
   
 }
@@ -24,6 +35,18 @@ if(isset($_POST['cin']) && isset($_POST['firstname']) && isset($_POST['lastname'
 
 <div class="container">
         <form action="addPerson.php" method="post" enctype="multipart/form-data">
+
+        <?php if (isset($_SESSION['emptyFields'])) { ?>
+                <div class="alert alert-danger"><?= $_SESSION['emptyFields'] ?></div>
+            <?php }
+            unset($_SESSION['emptyFields']);
+            ?>
+
+        <?php if (isset($_SESSION['usedCinError'])) { ?>
+                <div class="alert alert-danger"><?= $_SESSION['usedCinError'] ?></div>
+            <?php }
+            unset($_SESSION['usedCinError']);
+            ?>
           <div class="form-group">
                 <label for="cin">cin</label>
                 <input type="text" class="form-control" name="cin" id="cin" placeholder="cin">

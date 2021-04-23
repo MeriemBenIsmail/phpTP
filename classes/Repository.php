@@ -17,6 +17,12 @@ class Repository
         $response->execute([]);
         return $response->fetchAll(PDO::FETCH_OBJ);
     }
+    public function findBycin($cin){
+        $request = "select * from ".$this->tableName ." where cin = ?";
+        $response =$this->bd->prepare($request);
+        $response->execute([$cin]);
+        return $response->fetch(PDO::FETCH_OBJ);
+    }
 
     public function findByUsername($username) {
         $request = "select * from ".$this->tableName ." where username = ?";
@@ -31,8 +37,18 @@ class Repository
         return $response->fetch(PDO::FETCH_OBJ);
     }
 
+    public function addUser($val1,$val2){
+
+       
+        $request = "INSERT INTO ".$this->tableName. "(username,password) VALUES ('".$val1."','".$val2."')" ; 
+        $response=$this->bd->prepare($request);
+        $response->execute();
+        return $response->fetch(PDO::FETCH_OBJ);
+        
+    }
+
     
-    public function add($val1,$val2,$val3,$val4,$val5,$val6){
+    public function addPerson($val1,$val2,$val3,$val4,$val5,$val6){
 
        
         $request = "INSERT INTO ".$this->tableName. "(cin,firstname,lastname,section,age,image) VALUES ('".$val1."','".$val2."','".$val3."','".$val4."','".$val5."','".addslashes ($val6)."')" ; 
@@ -42,16 +58,7 @@ class Repository
         
     }
 
-    public function insertBlob($filePath) {
-        $blob = fopen($filePath, 'rb');
 
-        $sql = "INSERT INTO files(data) VALUES(:data)";
-        $stmt = $this->pdo->prepare($sql);
-
-        $stmt->bindParam(':data', $blob, PDO::PARAM_LOB);
-
-        return $stmt->execute();
-    }
 
     public function deleteByCin($id){
 
@@ -60,7 +67,14 @@ class Repository
         $response->execute([$id]);
         return $response->fetch(PDO::FETCH_OBJ);
     }
+    public function updatePic($id1,$img,$id2){
 
+        $request="UPDATE " .$this->tableName." SET ".$id1."='".addslashes($img)."' WHERE cin= ".$id2;
+        $response =$this->bd->prepare($request);
+        $response->execute();
+        return $response->fetch(PDO::FETCH_OBJ);
+    }
+    
     public function update($id1,$id2,$id3){
 
         $request="UPDATE " .$this->tableName." SET ".$id1."='".$id2."' WHERE cin= ".$id3;
