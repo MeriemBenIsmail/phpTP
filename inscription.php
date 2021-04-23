@@ -6,7 +6,7 @@ if (isset($_SESSION['user'])) {
 }
 
 
-$title = "Inscription";
+$title = "Sign Up";
 include_once('head.php');
 
 ?>
