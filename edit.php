@@ -76,6 +76,7 @@ if(isset($_POST['submit'])){
 
 
             <button type="submit" name="submit" class="btn btn-primary">Save</button>
+            <a href="acceuil.php" class="btn btn-primary">Back</a>
         </form>
     
     </div>

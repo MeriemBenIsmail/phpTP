@@ -2,7 +2,7 @@
 include_once 'autoload.php';
 
 include_once 'isAuthentificated.php';
-$title = 'Acceuil';
+$title = 'Home';
 include_once 'head.php';
 
 $PersonRepository = new PersonRepository();

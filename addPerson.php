@@ -77,6 +77,7 @@ if(isset($_POST['cin']) && isset($_POST['firstname']) && isset($_POST['lastname'
 
 
             <button type="submit" name="submit" class="btn btn-primary">Add</button>
+            <a href="acceuil.php" class="btn btn-primary">Back</a>
         </form>
     
     </div>
